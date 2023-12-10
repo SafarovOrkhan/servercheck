@@ -1,0 +1,36 @@
+# SSH related settigs (mandatory):
+USER=
+HOSTNAME=
+PORT=
+
+#------ Checking services (can be empty) ----------
+# You can add more service query by adding such variables : SERVICE<number> , SERVICE<number>_LOG 
+SERVICE1=
+SERVICE2=
+SERVICE1_LOG=
+SERVICE2_LOG=
+
+#------ Checking Network (can be empty) -----------
+# you can use telnet to multiple IPs on remote server 
+# If so Define in following format : TELNET<number> , TELNETPORT<number>
+TELNET1=
+TELNET2=
+TELNETPORT1=
+TELNETPORT2=
+
+# followings are checked automatically if =enabled is specified, if you do not want specify =disabled :
+# - hostname
+HOSTNAMECHECK=enabled
+# - /etc/hosts file
+HOSTCHECK=enabled
+# - network devices and interfaces status and IPs
+NETWORKMANAGER=enabled
+# - gateway IPs
+GATEWAY=enabled
+# - /etc/resolve.conf file
+DNSFILE=enabled
+# - disk space , block status , mount table 
+CHCKDISK=enabled
+# - /etc/fstab
+FSTAB=enabled
+
