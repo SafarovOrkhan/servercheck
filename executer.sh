@@ -53,6 +53,12 @@ elif [[ $1 == "--edittmp="* ]]; then
     checkEmpty "$selectedTemplate"
     editingMenu "$selectedTemplate" "$editor"
 
+# Check version
+elif [[ $1 == "-v" || $1 == "-V" || $1 == "--version" ]]; then
+    
+    # VERSION
+    version
+
 # Handle the case where none of the expected options are provided
 else
     ArgumentPrint "wrongArgument"
