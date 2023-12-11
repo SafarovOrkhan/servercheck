@@ -121,37 +121,81 @@ createTemplateFile() {
 
 # --------------------------------------------------------------------------------
 # Function: Save-Delete-Show-Template
-# Description: Saves or deletes a template name from the template list file.
+# Description: Manages templates by saving, deleting, or showing their status in the template list file.
 # Parameters:
-#   - template: The name of the template to be saved or deleted.
-#   - input: Specifies whether to delete or save the template.
-#            Options: "delete" or "save".
+#   - template: The name of the template to be saved, deleted, or shown.
+#   - input: Specifies the action to perform - "delete", "save", or "show".
 
 Save-Delete-Show-Template() {
     template=$1
     input=$2
 
-    # Check if the input is to delete the template
-    if [[ $input == "delete" ]]; then
-        # Use sed to delete the template name from the template list file, and suppress any output
-        sed -i "/$template/d" "$apppath/templateList" > /dev/null 2>&1
+   
     # Check if the input is to save the template
-    elif [[ $input == "save" ]]; then
+    if [[ $input == "save" ]]; then
         # Append the template name to the template list file
         echo "$template" >> $apppath/templateList
-	elif [[ $input == "show" ]]; then
-		for i in $(cat $apppath/templateList) ;
-		do
-			if [[ -e "$i" ]]; then
-				continue
-			else
-				sed -i "/"$i"/d" "$apppath/templateList"
-			fi
-		done
-		cat -n $apppath/templateList
+    # Check if the input is to show the templates
+    elif [[ $input == "show" ]]; then
+        touch $apppath/temporary
+        # Iterate through the template list, filter existing templates, and update the list
+        for i in $(cat $apppath/templateList); do
+            if [[ -e $i ]]; then
+                echo "$i" >> $apppath/temporary
+            else
+                continue
+            fi
+        done
+        mv $apppath/temporary $apppath/templateList
+
+        if [[ -s $apppath/templateList ]];then
+            # Print the updated template list with line numbers
+            cat -n $apppath/templateList
+        else
+            echo "Not any Template files found."
+            echo "You can create one with --newtemp=< Template name >"
+        fi
     fi
 }
 
+# --------------------------------------------------------------------------------
+# Function: editingMenu
+# Description: Opens the specified template file for editing using the specified editor.
+# Parameters:
+#   - templateNumber: The line number corresponding to the template in the template list.
+#   - editor: The editor command to be used for editing the file.
+#   - list: The path to the template list file.
+
+editingMenu() {
+    templateNumber=$1
+    editor=$2
+
+    # Check if the template number is a valid positive intege r
+    if ! [[ "$templateNumber" =~ ^[0-9]+$ ]]; then
+        echo "Error: Invalid line number."
+        exit 1
+    fi
+
+    list=$apppath/templateList
+    listLineNumber=$(wc $list -l | awk '{print $1}')
+    integer_templateNumber=$((templateNumber))
+    integer_listLineNumber=$((listLineNumber))
+
+
+    if [[ $integer_templateNumber -le $integer_listLineNumber ]];then
+        # Extract the file path from the specified line number
+        file=$(sed -n "${templateNumber}p" "$list")
+        # Check if the file path is not empty
+        if [ -n "$file" ]; then
+            # Open the file for editing using the specified editor
+            $editor "$file"
+        else
+            echo "Error: Line number not found or invalid."
+        fi
+    else
+        echo "Error: Line number not found or invalid."
+    fi
+}
 
 # --------------------------------------------------------------------------------
 # Function to check and set the template path
