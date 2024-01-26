@@ -5,3 +5,4 @@ from fabric import Connection , Config
 
 password = getpass.getpass()
 
+print(password)
