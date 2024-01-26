@@ -1,5 +1,0 @@
-Options :
-  	--temp=<template filePath>  reads and processes from template file. Path can be absolute or just filename. If file name only provided,
-        	                    it will take filename from $templatesFolder variable that set with --changeconf option of command
-
-	--changeconf		    change the default tool level configurations
