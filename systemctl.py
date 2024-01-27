@@ -20,14 +20,18 @@ def main():
 
     try:
         # Run a command on the remote server
-        #result = con_ssh.run("hostnamectl", hide=True)
+        result = con_ssh.run("hostnamectl", hide=True)
+        result1 = con_ssh.run("ls -la", hide=True)
+
+        print(result.stdout)
+        print(result1.stdout)
 
     except KeyboardInterrupt:
-        print("Session Interupted by you !")
+        print("Session interrupted by you!")
 
     except Exception:
-    # Catch other exceptions without printing details
-        pass
+            # Catch other exceptions without printing details
+            pass
 
     finally:
         # Close the SSH connection
