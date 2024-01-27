@@ -21,8 +21,8 @@ def main():
     finally:
         try:
             # Run a command on the remote server
-            result = con_ssh.run("hostnamectl", hide=True)
-            result1 = con_ssh.run("ls -la", hide=True)
+            result = con_ssh.sudo("hostnamectl", hide=True)
+            result1 = con_ssh.sudo("ls -la", hide=True)
 
             print(result.stdout)
             print(result1.stdout)
