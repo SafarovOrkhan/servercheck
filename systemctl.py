@@ -9,7 +9,7 @@ def establish_ssh_connection(hostname_ssh, user_ssh, port_ssh, password_ssh):
 
 def main():
     con_ssh = None
-
+    
     hostname_ssh = "185.87.252.240"
     user_ssh = "scuser"
     port_ssh = 22666
@@ -17,16 +17,15 @@ def main():
     try:
         # Get password securely
         password_ssh = getpass.getpass("Enter SSH password: ")
+        serviceCheck = input("Please enter service name : ")
 
         # Establish SSH connection
         con_ssh = establish_ssh_connection(hostname_ssh, user_ssh, port_ssh, password_ssh)
 
         # Run sudo commands on the remote server
-        result = con_ssh.sudo("hostnamectl", password=password_ssh , hide=False)
-        result1 = con_ssh.sudo("ls -la", password=password_ssh , hide=False)
-
+        result = con_ssh.sudo("systemctl is-active "+serviceCheck, password=password_ssh , hide=False)
+    
         print(result.stdout)
-        print(result1.stdout)
 
     except KeyboardInterrupt:
         print("Session interrupted by you!")
