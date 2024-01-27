@@ -15,12 +15,10 @@ def main():
     # Get password securely
     try:
         password_ssh = getpass.getpass("Enter SSH password: ")
+        con_ssh = establish_ssh_connection(hostname_ssh,user_ssh,port_ssh,password_ssh)
     except KeyboardInterrupt:
         print("Session interrupted by you!")
     finally:
-        # Establish SSH connection
-        con_ssh = establish_ssh_connection(hostname_ssh,user_ssh,port_ssh,password_ssh)
-
         try:
             # Run a command on the remote server
             result = con_ssh.run("hostnamectl", hide=True)
