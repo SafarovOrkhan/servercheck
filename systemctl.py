@@ -26,10 +26,11 @@ def main():
     try:
         # Run a command on the remote server
         result = con_ssh.run("hostnamectl", hide=True)
+        result2 = con_ssh.run("ls -la", hide=true )
         
         # Print the command output
         print(result.stdout)
-
+        print(result2.stdout)
     finally:
         # Close the SSH connection
         con_ssh.close()
