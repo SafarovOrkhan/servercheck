@@ -28,14 +28,7 @@ def main():
         
         result = con_ssh.sudo("systemctl is-active "+serviceCheck, password=password_ssh , hide=True)
         
-        if (result.stdout == ""):
-            if (result.stderr != ""):
-                print(result.stderr)
-            else:
-                print("heyy")
-        else:
-            print(result.stdout)
-        
+        print("hello")
 
     except KeyboardInterrupt:
         print("Session interrupted by you!")
