@@ -18,13 +18,14 @@ def main():
         # Get password securely
         password_ssh = getpass.getpass("Enter SSH password: ")
         serviceCheck = input("Please enter service name : ")
-
         # Establish SSH connection
         con_ssh = establish_ssh_connection(hostname_ssh, user_ssh, port_ssh, password_ssh)
-
+        
         # Run sudo commands on the remote server
+        servicesArray = serviceCheck.split(",")
+        print("selected services: "+str(servicesArray))
+        
         result = con_ssh.sudo("systemctl is-active "+serviceCheck, password=password_ssh , hide=True)
-    
         print(result.stdout)
 
     except KeyboardInterrupt:
