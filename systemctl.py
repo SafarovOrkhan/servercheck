@@ -22,8 +22,8 @@ def main():
         con_ssh = establish_ssh_connection(hostname_ssh, user_ssh, port_ssh, password_ssh)
 
         # Run sudo commands on the remote server
-        result = con_ssh.sudo("hostnamectl", hide=True)
-        result1 = con_ssh.sudo("ls -la", hide=True)
+        result = con_ssh.sudo("hostnamectl", hide=False)
+        result1 = con_ssh.sudo("ls -la", hide=False)
 
         print(result.stdout)
         print(result1.stdout)
