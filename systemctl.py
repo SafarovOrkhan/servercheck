@@ -23,7 +23,7 @@ def main():
         con_ssh = establish_ssh_connection(hostname_ssh, user_ssh, port_ssh, password_ssh)
 
         # Run sudo commands on the remote server
-        result = con_ssh.sudo("systemctl is-active "+serviceCheck, password=password_ssh , hide=False)
+        result = con_ssh.sudo("systemctl is-active "+serviceCheck, password=password_ssh , hide=True)
     
         print(result.stdout)
 
