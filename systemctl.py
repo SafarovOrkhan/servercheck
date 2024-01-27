@@ -8,7 +8,7 @@ portSSH = 22666
 
 passwordSSH = getpass.getpass()
 
-config = Config(overrrides={'sudo': {'password' : passwordSSH}})
+config = Config(overrides={'sudo': {'password' : passwordSSH}})
 conSSH = Connection(hostnameSSH, user=userSSH, port=portSSH, config=config)
 
 conSSH.run("hostnamectl")
