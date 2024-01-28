@@ -15,7 +15,7 @@ def main():
     port_ssh = 22666
 
     try:
-        # Get password securely
+        # Get password securelya
         password_ssh = getpass.getpass("Enter SSH password: ")
         print("You will enter one or more Telnet IP addresses and ports separated by "," ")
         telnetIpCheck = input("Telnet IP addresses: ")
