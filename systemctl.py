@@ -31,6 +31,7 @@ def main():
             else:
                 isExist = con_ssh.sudo("systemctl list-units --type=service | grep  -w "+i+" | wc -l", password=password_ssh , hide=True).stdout.strip()
                 if (int(isExist) == 0):
+                    print("● Service: "+i+" is not found. Proceeding to next ...")
                     continue
                 else:
                     cutNumber = con_ssh.sudo("systemctl status "+i+" | grep -n  \"CGroup: \" | cut -d : -f1", password=password_ssh , hide=True).stdout.strip()
