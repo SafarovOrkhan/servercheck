@@ -29,7 +29,7 @@ def main():
             if (i == ""):
                 continue
             else:
-                result = con_ssh.sudo("systemctl is-active "+serviceCheck, password=password_ssh , hide=True)
+                result = con_ssh.sudo("systemctl is-active "+i, password=password_ssh , hide=True)
                 print("service: "+i+"\t\tstatus: "+result.stdout)
 
     except KeyboardInterrupt:
