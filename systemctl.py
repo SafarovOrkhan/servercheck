@@ -25,10 +25,12 @@ def main():
         # Run sudo commands on the remote server
         servicesArray = serviceCheck.split(",")
         print("selected services: "+str(servicesArray))
-        
-        result = con_ssh.sudo("systemctl is-active "+serviceCheck, password=password_ssh , hide=True)
-        
-        print("hello")
+        for i in servicesArray:
+            if (i == ""):
+                continue
+            else:
+                result = con_ssh.sudo("systemctl is-active "+serviceCheck, password=password_ssh , hide=True)
+                print(result.stdout)
 
     except KeyboardInterrupt:
         print("Session interrupted by you!")
