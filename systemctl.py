@@ -29,7 +29,7 @@ def main():
             if (i == ""):
                 continue
             else:
-                cutNumber = con_ssh.sudo("systemctl status nginx | grep -n  "CGroup: " | cut -d : -f1", password=password_ssh , hide=True)
+                cutNumber = con_ssh.sudo("systemctl status nginx | grep -n  \"CGroup: \" | cut -d : -f1", password=password_ssh , hide=True)
                 result = con_ssh.sudo("systemctl status "+i+" | head -n "+cutNumber, password=password_ssh , hide=True)
                 print("service: "+i+"\t\tstatus: "+result.stdout)
 
