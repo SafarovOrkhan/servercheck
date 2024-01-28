@@ -29,9 +29,13 @@ def main():
             if (i == ""):
                 continue
             else:
-                cutNumber = con_ssh.sudo("systemctl status "+i+" | grep -n  \"CGroup: \" | cut -d : -f1", password=password_ssh , hide=True).stdout.strip()
-                result = con_ssh.sudo("systemctl status "+i+" | head -n "+cutNumber, password=password_ssh , hide=True)
-                print(result.stdout)
+                isExist = con_ssh.sudo("systemctl list-units --type=service | grep  -w "+i+" | wc -l", password=password_ssh , hide=True).stdout.strip()
+                if (int(isExist) == 0):
+                    continue
+                else:
+                    cutNumber = con_ssh.sudo("systemctl status "+i+" | grep -n  \"CGroup: \" | cut -d : -f1", password=password_ssh , hide=True).stdout.strip()
+                    result = con_ssh.sudo("systemctl status "+i+" | head -n "+cutNumber, password=password_ssh , hide=True)
+                    print(result.stdout)
 
     except KeyboardInterrupt:
         print("Session interrupted by you!")
